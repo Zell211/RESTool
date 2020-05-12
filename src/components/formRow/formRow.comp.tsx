@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { orderBy } from 'natural-orderby';
 import { toast } from 'react-toastify';
+import AceEditor from 'react-ace';
+
+import 'ace-builds/src-noconflict/mode-json';
+import 'ace-builds/src-noconflict/theme-tomorrow';
 
 import { IConfigInputField, IConfigOptionSource, ICustomLabels } from '../../common/models/config.model';
 import { Button } from '../button/button.comp';
@@ -168,7 +172,16 @@ export const FormRow = withAppContext(({ context, field, direction, showReset, o
           );
         };
       case 'object':
-        return <textarea {...inputProps(customLabels?.placeholders?.object || 'Enter JSON...')}></textarea>;
+        return <AceEditor
+          {
+          ...inputProps(customLabels?.placeholders?.object || 'Enter JSON...')
+          }
+          mode='json'
+          theme='tomorrow'
+          tabSize={2}
+          onChange={(value) => props.onChange({ target: { value } })}
+          maxLines={Infinity}
+        />
       case 'array': {
         const { arrayType, value } = field;
         if (!value || !arrayType || arrayType === 'object') {
