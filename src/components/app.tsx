@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import ConfigService from '../services/config.service';
 import { IConfig, IConfigPage } from '../common/models/config.model';
 import { Page } from '../components/page/page.comp';
+import { AuthPage } from '../components/authPage/authPage.comp';
 import { Navigation } from '../components/navigation/navigation.comp';
 import { AppContext } from './app.context';
 import HttpService from '../services/http.service';
@@ -132,6 +133,7 @@ function App() {
               config &&
               <Switch>
                 <Route exact path="/:page" component={Page} />
+                <Route exact path='/login' component={AuthPage} />
                 <Redirect path="/" to={`/${config?.pages?.[0]?.id || '1'}`} />
               </Switch>
             }
