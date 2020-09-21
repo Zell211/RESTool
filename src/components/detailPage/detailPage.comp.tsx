@@ -36,7 +36,6 @@ const DetailPageComp = ({ context }: IProps) => {
     pathname = pathname.slice(1);
   }
   const { activeResource, setActiveResource, error, setError, httpService, config, activeItem, setActiveItem, detailPagesConfig, activePathVars, setActivePathVars } = context;
-  let subResources = activeResource?.subResources;
   const pageHeaders: any = activeResource?.requestHeaders || {};
   const pageMethods: IConfigMethods | undefined = activeResource?.methods;
   const customActions: IConfigCustomAction[] = activeResource?.customActions || [];
@@ -183,20 +182,20 @@ const DetailPageComp = ({ context }: IProps) => {
 
   function ControlledTabs() {
 
-    if (subResources === null) {
+    if (activeResource?.subResources === null) {
       return null;
     }
     return (
       <Tabs selectedIndex={activeTabIndex} onSelect={tabIndex => setActiveTabIndex(tabIndex)}>
         <TabList>
           {
-            subResources &&
-            subResources.map((resource, index) => <Tab key={`resource_tablist_${index}`}>{resource.name}</Tab>)
+            activeResource?.subResources &&
+            activeResource?.subResources.map((resource, index) => <Tab key={`resource_tablist_${index}`}>{resource.name}</Tab>)
           }
         </TabList>
         {
-          subResources &&
-          subResources.map((resource, index) => renderTabContent(
+          activeResource?.subResources &&
+          activeResource?.subResources.map((resource, index) => renderTabContent(
             `resource_tabcontent_${index}`,
             resource,
           ))
@@ -218,7 +217,7 @@ const DetailPageComp = ({ context }: IProps) => {
             detailPagesConfig &&
             activeResource &&
             activeItem &&
-            subResources &&
+            activeResource?.subResources &&
             <ControlledTabs />
         }
       </React.Fragment>
