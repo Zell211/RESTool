@@ -79,6 +79,8 @@ export default {
   // Content is the same as the json config file
 }
 ```
+
+**NOTE:** In case you're using the `build` folder, the config.js must be placed in the folder `/build/static/js`.
 <br />
 
 ### Resources
